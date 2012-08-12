@@ -104,7 +104,7 @@ abstract class Ilmenite_Slider {
 			'hierarchial' => false,
 			'capability_type' => 'post',
 			'supports' => array(
-				'title', 'editor', 'thumbail'
+				'title', 'editor', 'thumbnail'
 			)
 			
 		);
