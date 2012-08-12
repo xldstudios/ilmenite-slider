@@ -24,6 +24,9 @@ class ISL_Public extends Ilmenite_Slider {
 		// Load Scripts
 		add_action( 'wp_head', array( $this, 'scripts' ) );
 		
+		// Add Shortode
+		add_shortcode( 'slider', array( $this, 'slider_shortcode' ) );
+		
 	}
 	
 	/**
@@ -62,7 +65,7 @@ class ISL_Public extends Ilmenite_Slider {
 	 * @since Ilmenite Slider 1.0
 	 * @params id (string) | class (string) | caption (true/false)
 	 **/
-	public function slider_code( $id = 'slider', $class, $caption = 'false' ) {
+	public function slider_code( $id = 'slider', $class = 'flexslider', $caption = 'false' ) {
 		
 	    $slider_args = array(
 	    	'posts_per_page' => -1,
@@ -84,7 +87,7 @@ class ISL_Public extends Ilmenite_Slider {
 							$output .= the_post_thumbnail('slider');
 							
 							// Output the caption if one is set to be displayed
-							if( $caption == true ) :
+							if( $caption == 'true' ) :
 							
 							$output .= '<p class="flex-caption">';
 							
@@ -106,6 +109,27 @@ class ISL_Public extends Ilmenite_Slider {
 		
 		// Return
 		return $output;
+		
+	}
+
+	/**
+	 * Slider Shortcode
+	 *
+	 * Usage: [slider id="string" class="string" caption="true/false" ]
+	 *
+	 * @since Ilmenite Slider 1.0
+	 **/
+	public function slider_shortcode( $atts ) {
+		
+		extract( shortcode_atts( array(
+			'id' => 'slider',
+			'class' => 'flexslider',
+			'caption' => 'false'
+		), $atts ) );
+		
+		$slider_code = $this->slider_code( $id, $class, $caption );
+		
+		return $slider_code;
 		
 	}
 	
