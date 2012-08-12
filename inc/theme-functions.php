@@ -17,7 +17,7 @@ function get_ilmenite_slider(  $id = 'slider', $class, $caption = 'false'  ) {
 	
 }
 
-function print_ilmenite_slider(  $id = 'slider', $class, $caption = 'false'  ) {
+function ilmenite_slider(  $id = 'slider', $class, $caption = 'false'  ) {
 	
 	global $ilmenite_slider;
 	
