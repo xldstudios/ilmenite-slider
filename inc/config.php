@@ -9,7 +9,7 @@
  * @package Ilmenite Slider 1.0
  **/
 
-class IS_Config {
+class ISL_Config {
 	
 	protected $config;
 	

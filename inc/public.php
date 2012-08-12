@@ -9,7 +9,7 @@
  * @package Ilmenite Slider
  **/
 
-class IS_Public extends Ilmenite_Slider {
+class ISL_Public extends Ilmenite_Slider {
 	
 	/**
 	 * Init Function

@@ -9,7 +9,7 @@
  * @package Ilmenite Slider
  **/
 
-class IS_Admin extends Ilmenite_Slider {
+class ISL_Admin extends Ilmenite_Slider {
 	
 	
 	/**

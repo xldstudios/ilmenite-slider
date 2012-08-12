@@ -9,6 +9,8 @@
  * @package Ilmenite Slider
  **/
 
+if( !class_exists('WP_Auto_Update') ) :
+
 class WP_Auto_Update {
     /**
      * The plugin current version
@@ -154,3 +156,5 @@ class WP_Auto_Update {
     
     }
 }
+
+endif;
