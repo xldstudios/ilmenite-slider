@@ -101,11 +101,11 @@ class ISL_Public extends Ilmenite_Slider {
 							// Output the caption if one is set to be displayed
 							if( $caption == 'true' ) :
 							
-							$output .= '<p class="flex-caption">';
+							$output .= '<div class="slide-caption">';
 							
 								$output .= get_the_excerpt();
 								
-							$output .= '</p>';
+							$output .= '</div>';
 							
 							endif;
 							
