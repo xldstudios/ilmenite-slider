@@ -54,8 +54,20 @@ class ISL_Public extends Ilmenite_Slider {
 		// wp_register_script( $handle, $src, $deps, $ver, $in_footer );
 		wp_register_script( 'flexslider', ISL_JS . '/jquery.flexslider-min.js', array('jquery'), ISL_VERSION, true );
 		
+		// Check if slider javascript exists in stylesheet dir and template dir. If they do not, load the default plugin one.
+		if( file_exists( get_stylesheet_directory() . '/js/slider.js' ) ) {
+			$slider_js_path = get_stylesheet_directory() . '/js/slider.js';
+		} elseif( file_exists( get_template_directory() . '/js/slider.js' ) ) {
+			$slider_js_path = get_template_directory() . '/js/slider.js';
+		} else {
+			$slider_js_path = ISL_JS . '/slider.js';
+		}
+		
+		wp_register_script( 'slider-script', $slider_js_path, array('jquery', 'flexslider'), ISL_VERSION, true );
+		
 		// Enqueue
 		wp_enqueue_script( 'flexslider' );
+		wp_enqueue_script( 'slider-script' );
 		
 	}
 	
@@ -84,7 +96,7 @@ class ISL_Public extends Ilmenite_Slider {
 					
 						$output .= '<li>';
 							
-							$output .= the_post_thumbnail('slider');
+							$output .= get_the_post_thumbnail($slider->ID, 'slider');
 							
 							// Output the caption if one is set to be displayed
 							if( $caption == 'true' ) :
