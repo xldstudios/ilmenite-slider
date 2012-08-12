@@ -14,6 +14,7 @@ License: GPL2
  **/
 
 define( 'ISL_PLUGIN_PATH', dirname( __FILE__ ) );
+define( 'ISL_PLUGIN_DIR', basename( dirname( __FILE__ ) ) );
 define( 'ISL_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 define( 'ISL_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 

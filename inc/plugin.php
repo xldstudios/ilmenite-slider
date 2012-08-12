@@ -26,11 +26,17 @@ abstract class Ilmenite_Slider {
 		// Loads config
 		$this->_config = $config;
 		
+		// Load Textdomain
+		load_plugin_textdomain( 'ilslider', false, ISL_PLUGIN_DIR );
+		
 		// Loads init function
 		$this->init();
 		
 		// Loads slider post type function
 		add_action( 'init', array( $this, 'slider_post_type' ) );
+		
+		// Add image sizes and thumbnail support
+		add_action( 'init', array( $this, 'image_sizes' ) );
 		
 	}
 	
@@ -113,4 +119,21 @@ abstract class Ilmenite_Slider {
 		register_post_type( 'slider', $args );
 		
 	}
+	
+	/**
+	 * Define Custom Image Sizes
+	 *
+	 * @since Ilmenite Slider 1.0
+	 * @params width (integer) | height (integer) | hardcrop (true/false)
+	 **/
+	public function image_sizes( $width = 960, $height = 300, $hardcrop = true ) {
+		
+		// Make sure we support thumbnails
+		add_theme_support('post-thumbnails');
+		
+		// Add custom slider image size
+		add_image_size( 'slider', $width, $height, $hardcrop );
+		
+	}
+	
 }
