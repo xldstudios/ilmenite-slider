@@ -104,6 +104,9 @@ class ISL_Public extends Ilmenite_Slider {
 		
 		endif;
 		
+		// Return
+		return $output;
+		
 	}
 	
 }
