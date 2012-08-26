@@ -91,7 +91,7 @@ abstract class Ilmenite_Slider {
 		$args = array(
 			
 			'labels' => $labels,
-			'description' => 'Image and video slider for use in themes.',
+			'description' => __('Image and video slider for use in themes.', 'ilslider'),
 			
 			'public' => true,
 			'publicly_queryable' => true, // Can be accessed from a WP Query
