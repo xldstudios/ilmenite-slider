@@ -70,7 +70,7 @@ abstract class Ilmenite_Slider {
 			'name' => _x('Slider', 'post type general name', 'ilslider'),
 			'singular_name' => _x('Slider', 'post type singular name', 'ilslider'),
 			
-			'add_new' => _x('Add New', 'title for add new of post type', 'ilslider'),
+			'add_new' => __('Add New', 'ilslider'),
 			'add_new_item' => __('Add New Item', 'ilslider'),
 			'edit_item' => __('Edit Item', 'ilslider'),
 			'new_item' => __('New Item', 'ilslider'),

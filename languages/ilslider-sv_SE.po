@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ilmenite Slider\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-26 13:21+0100\n"
-"PO-Revision-Date: 2012-08-26 13:24+0100\n"
+"POT-Creation-Date: 2012-08-26 13:38+0100\n"
+"PO-Revision-Date: 2012-08-26 13:38+0100\n"
 "Last-Translator: Erik Bernskiold <erik@xldstudios.com>\n"
 "Language-Team: XLD Studios <info@xldstudios.com>\n"
 "Language: English\n"
@@ -14,43 +14,48 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
 
-#: inc/plugin.php:70 inc/plugin.php:71 inc/plugin.php:86
+#: ../inc/plugin.php:70 ../inc/plugin.php:71 ../inc/plugin.php:86
 msgid "Slider"
 msgstr "Slider"
 
-#: inc/plugin.php:73
+#: ../inc/plugin.php:73
 msgid "Add New"
 msgstr "Lägg till"
 
-#: inc/plugin.php:74
+#: ../inc/plugin.php:74
 msgid "Add New Item"
 msgstr "Lägg till bild"
 
-#: inc/plugin.php:75
+#: ../inc/plugin.php:75
 msgid "Edit Item"
 msgstr "Redigera bild"
 
-#: inc/plugin.php:76
+#: ../inc/plugin.php:76
 msgid "New Item"
 msgstr "Ny bild"
 
-#: inc/plugin.php:77
+#: ../inc/plugin.php:77
 msgid "All Items"
 msgstr "Alla bilder"
 
-#: inc/plugin.php:78
+#: ../inc/plugin.php:78
 msgid "View Item"
 msgstr "Visa bild"
 
-#: inc/plugin.php:79
+#: ../inc/plugin.php:79
 msgid "Search Items"
 msgstr "Sök bilder"
 
-#: inc/plugin.php:81
+#: ../inc/plugin.php:81
 msgid "No slider items found"
 msgstr "Inga sliderbilder funna"
 
-#: inc/plugin.php:82
+#: ../inc/plugin.php:82
 msgid "No slider items found in the trash"
 msgstr "Inga sliderbilder funna i papperskorgen"
+
+#: ../inc/plugin.php:94
+msgid "Image and video slider for use in themes."
+msgstr "Bild och videoslider för användning i teman."
