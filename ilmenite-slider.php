@@ -1,82 +1,193 @@
 <?php
-/*
-Plugin Name: Ilmenite Slider
-Plugin URI: http://www.xldstudios.com/plugins/ilmenite-slider/
-Description: Creates a slider post type and adds functions to display it on the frontend and via shortcodes.
-Version: 1.0
-Author: XLD Studios
-Author URI: http://www.xldstudios.com
-License: GPL2
-*/
+/**
+ * Plugin Name: Ilmenite Slider
+ * Plugin URI: https://github.com/xldstudios/ilmenite-slider
+ * Author: XLD Studios
+ * Author URI: http://www.xldstudios.com/
+ * Description: A small shortcodes plugin that contains only the shortcodes that we have found most essential to include on our clients websites to reduce bloat.
+ * Version: 1.1
+ * Text Domain: ilslider
+ * License: GPL2
+ */
 
 /**
- * Plugin Definitions
- **/
+ * Get some constants ready for paths when your plugin grows
+ */
+define( 'ILSL_VERSION', '1.1' );
+define( 'ILSL_PATH', dirname( __FILE__ ) );
+define( 'ILSL_PATH_INCLUDES', dirname( __FILE__ ) . '/inc' );
+define( 'ILSL_PATH_ASSETS', dirname( __FILE__ ) . '/assets' );
+define( 'ILSL_FOLDER', basename( ILSL_PATH ) );
+define( 'ILSL_URL', plugins_url() . '/' . ILSL_FOLDER );
+define( 'ILSL_URL_INCLUDES', ILSL_URL . '/inc' );
+define( 'ILSL_URL_ASSETS', ILSL_URL . '/assets' );
 
-define( 'ISL_PLUGIN_PATH', dirname( __FILE__ ) );
-define( 'ISL_PLUGIN_DIR', basename( dirname( __FILE__ ) ) );
-define( 'ISL_PLUGIN_URL', plugins_url( '', __FILE__ ) );
-define( 'ISL_PLUGIN_FILE', plugin_basename( __FILE__ ) );
+class Ilmenite_Shortcodes {
 
-define( 'ISL_VERSION', '1.0' );
+	/**
+	 *
+	 * Assign everything as a call from within the constructor
+	 */
+	function __construct() {
 
-define( 'ISL_PLUGIN_INC', ISL_PLUGIN_PATH . '/inc' );
-define( 'ISL_SHORTCODES', ISL_PLUGIN_PATH . '/shortcodes' );
+		// Add scripts and styles
+		add_action( 'wp_enqueue_scripts', array( $this, 'ilsl_add_JS' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'ilsl_add_CSS' ) );
 
-define( 'ISL_ASSETS', ISL_PLUGIN_URL . '/assets' );
-define( 'ISL_CSS', ISL_ASSETS . '/css' );
-define( 'ISL_IMAGES', ISL_ASSETS . '/images' );
-define( 'ISL_JS', ISL_ASSETS . '/js' );
+		// Register Custom Post Types
+		add_action( 'init', array( $this, 'ilsl_custom_post_types' ), 5 );
 
-/**
- * Set up Plugin
- *
- * Loads all the plugin files and calls when appropriate.
- **/
+		// Register activation and deactivation hooks
+		register_activation_hook( __FILE__, array( $this, 'ilsl_on_activate_callback' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'ilsl_on_deactivate_callback' ) );
 
-require_once( ISL_PLUGIN_INC . '/plugin.php' ); // Include base file
-require_once( ISL_PLUGIN_INC . '/config.php' ); // Get config file
+		// Make shortcodes available
+		add_action( 'init', array( $this, 'ilsl_shortcodes' ) );
 
-$class_name = 'ISL_';
+		// Add the textdomain and support translation
+		add_action( 'plugins_loaded', array( $this, 'ilsl_add_textdomain' ) );
 
-// Load admin file if in the admin section
-if( is_admin() ) {
-	$class_name .= 'Admin';
-	require_once( ISL_PLUGIN_INC . '/admin.php' );
-} else {
-	$class_name .= 'Public';
-	require_once( ISL_PLUGIN_INC . '/theme-functions.php' );
-	require_once( ISL_PLUGIN_INC . '/public.php' );
+		// Add plugin updater
+		add_action( 'init', array( $this, 'ilsl_plugin_update' ) );
+	}
+
+	/**
+	 * Adding JavaScript scripts
+	 */
+	function ilsl_add_JS() {
+
+		// Make sure jQuery is loaded
+		wp_enqueue_script( 'jquery' );
+
+		// wp_register_script( $handle, $src, $deps, $ver, $in_footer );
+		wp_register_script( 'flexslider', ILSL_URL_ASSETS . '/js/jquery.flexslider-min.js', array( 'jquery' ), ISL_VERSION, true );
+
+		// Check if slider javascript exists in stylesheet dir and template dir.
+		// If they do not, load the default plugin one.
+		if( file_exists( get_stylesheet_directory() . '/javascripts/slider.js' ) ) {
+			$slider_js_path = get_stylesheet_directory() . '/javascripts/slider.js';
+		} elseif( file_exists( get_template_directory() . '/javascripts/slider.js' ) ) {
+			$slider_js_path = get_template_directory() . '/javascripts/slider.js';
+		} else {
+			$slider_js_path = ILSL_URL_ASSETS . '/js/slider.js';
+		}
+
+		wp_register_script( 'ilmenite-slider', $slider_js_path, array( 'jquery', 'flexslider' ), ISL_VERSION, true );
+
+		// Enqueue
+		wp_enqueue_script( 'flexslider' );
+		wp_enqueue_script( 'ilmenite-slider' );
+
+	}
+
+	/**
+	 * Add CSS styles
+	 */
+	function ilsl_add_CSS() {
+
+		// Register Shortcodes CSS
+		wp_register_style( 'flexslider', ILSL_URL_ASSETS . '/css/flexslider.css', false, ISL_VERSION, 'all' );
+
+		// Enqueue Styles
+		wp_enqueue_style( 'flexslider' );
+	}
+
+	/**
+	 * Set up Custom Post Types
+	 */
+	function ilsl_custom_post_types() {
+
+			// Slider Custom Post Type
+			register_post_type( 'ilmenite_slider', array(
+				'labels' => array(
+					'name'               => __("Slides", 'ilslider'),
+					'singular_name'      => __("Slide", 'ilslider'),
+					'add_new'            => _x("Add New", 'pluginbase', 'ilslider' ),
+					'add_new_item'       => __("Add New Slide", 'ilslider' ),
+					'edit_item'          => __("Edit Slide", 'ilslider' ),
+					'new_item'           => __("New Slide", 'ilslider' ),
+					'view_item'          => __("View Slide", 'ilslider' ),
+					'search_items'       => __("Search Slides", 'ilslider' ),
+					'not_found'          =>  __("No slides found", 'ilslider' ),
+					'not_found_in_trash' => __("No slides found in Trash", 'ilslider' ),
+				),
+				'description'         => __("Image and video slider for use in themes.", 'ilslider'),
+				'capability_type'		 => 'post',
+				'public'              => true,
+				'publicly_queryable'  => true,
+				'query_var'           => true,
+				'rewrite'             => false,
+				'exclude_from_search' => true,
+				'show_ui'             => true,
+				'show_in_menu'        => false,
+				'menu_position'       => 33,
+				'menu_icon' 			 => ILSL_URL_ASSETS . '/images/slider-icon.png',
+				'supports'            => array(
+					'title',
+					'editor',
+					'thumbnail',
+				),
+			));
+		}
+
+
+	/**
+	 * Register activation hook
+	 */
+	function ilsl_on_activate_callback() {
+		// do something on activation
+	}
+
+	/**
+	 * Register deactivation hook
+	 */
+	function ilsl_on_deactivate_callback() {
+		// do something when deactivated
+	}
+
+	/**
+	 * Add textdomain for plugin
+	 */
+	function ilsl_add_textdomain() {
+		load_plugin_textdomain( 'ilslider', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * Auto Update Support
+	 *
+	 * Adds support for auto-updating from GitHub repository.
+	 *
+	 * @since  1.2
+	 */
+	function ilsl_plugin_update() {
+
+		// Include updater class
+		require_once( ILSL_PATH_INCLUDES . '/updater.php' );
+
+		define( 'WP_GITHUB_FORCE_UPDATE', true );
+
+		if ( is_admin() ) { // note the use of is_admin() to double check that this is happening in the admin
+
+			$config = array(
+				'slug'               => plugin_basename( __FILE__ ),
+				'proper_folder_name' => 'ilmenite-slider',
+				'api_url'            => 'https://api.github.com/repos/xldstudios/ilmenite-slider',
+				'raw_url'            => 'https://raw.github.com/xldstudios/ilmenite-slider/master',
+				'github_url'         => 'https://github.com/xldstudios/ilmenite-slider',
+				'zip_url'            => 'https://github.com/xldstudios/ilmenite-slider/archive/master.zip',
+				'sslverify'          => true,
+				'requires'           => '3.0',
+				'tested'             => '3.6',
+				'readme'             => 'README.md',
+			);
+
+			new WP_GitHub_Updater( $config );
+
+		}
+
+	}
+
 }
 
-/**
- * Configuration Data
- **/
-
-$isl_config_data = array(
-	'plugin_file' => ISL_PLUGIN_FILE,
-	'version' => ISL_VERSION
-);
-
-/**
- * Execute Plugin Class
- **/
-
-$ilmenite_slider = new $class_name( new ISL_Config( $isl_config_data ) );
-
-unset( $class_name, $isl_config_data ); // Unset when done.
-
-/**
- * Auto Update
- **/
-add_action('init', 'isl_auto_update');
-
-function isl_auto_update() {
-	
-	require_once( ISL_PLUGIN_INC . '/auto-update.php' ); // Load auto update class
-	
-	$remote_update_link = 'http://www.xldstudios.com/updates/plugins/ilmenite-slider/update.php';
-	
-	new WP_Auto_Update( ISL_VERSION, $remote_update_link, ISL_PLUGIN_FILE );
-	
-}
+// Initialize everything
+$is_shortcodes = new Ilmenite_Shortcodes();
