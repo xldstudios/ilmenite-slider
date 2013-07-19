@@ -22,7 +22,7 @@ define( 'ILSL_URL', plugins_url() . '/' . ILSL_FOLDER );
 define( 'ILSL_URL_INCLUDES', ILSL_URL . '/inc' );
 define( 'ILSL_URL_ASSETS', ILSL_URL . '/assets' );
 
-class Ilmenite_Shortcodes {
+class Ilmenite_Slider {
 
 	/**
 	 *
@@ -41,8 +41,6 @@ class Ilmenite_Shortcodes {
 		register_activation_hook( __FILE__, array( $this, 'ilsl_on_activate_callback' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'ilsl_on_deactivate_callback' ) );
 
-		// Make shortcodes available
-		add_action( 'init', array( $this, 'ilsl_shortcodes' ) );
 
 		// Add the textdomain and support translation
 		add_action( 'plugins_loaded', array( $this, 'ilsl_add_textdomain' ) );
@@ -119,7 +117,7 @@ class Ilmenite_Shortcodes {
 				'rewrite'             => false,
 				'exclude_from_search' => true,
 				'show_ui'             => true,
-				'show_in_menu'        => false,
+				'show_in_menu'        => true,
 				'menu_position'       => 33,
 				'menu_icon' 			 => ILSL_URL_ASSETS . '/images/slider-icon.png',
 				'supports'            => array(
@@ -190,4 +188,4 @@ class Ilmenite_Shortcodes {
 }
 
 // Initialize everything
-$is_shortcodes = new Ilmenite_Shortcodes();
+$il_slider = new Ilmenite_Slider();
