@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ilmenite: Slider\n"
+"POT-Creation-Date: 2014-04-26 20:43+0100\n"
+"PO-Revision-Date: 2014-04-26 20:44+0100\n"
+"Last-Translator: Erik Bernskiold <erik@xldstudios.com>\n"
+"Language-Team: Erik Bernskiold <erik@xldstudios.com>\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-ilmenite-slider-post-types.php:27
+msgctxt "Post Type General Name"
+msgid "Slides"
+msgstr "Slides"
+
+#: includes/class-ilmenite-slider-post-types.php:28
+msgctxt "Post Type Singular Name"
+msgid "Slide"
+msgstr "Slide"
+
+#: includes/class-ilmenite-slider-post-types.php:29
+msgid "Slider"
+msgstr "Slider"
+
+#: includes/class-ilmenite-slider-post-types.php:30
+msgid "Parent Slide:"
+msgstr "Överliggande slide:"
+
+#: includes/class-ilmenite-slider-post-types.php:31
+msgid "All Slides"
+msgstr "Alla slides"
+
+#: includes/class-ilmenite-slider-post-types.php:32
+msgid "View Slide"
+msgstr "Visa slide"
+
+#: includes/class-ilmenite-slider-post-types.php:33
+msgid "Add New Slide"
+msgstr "Lägg till slide"
+
+#: includes/class-ilmenite-slider-post-types.php:34
+msgid "Add New"
+msgstr "Lägg till"
+
+#: includes/class-ilmenite-slider-post-types.php:35
+msgid "Edit Slide"
+msgstr "Redigera slide"
+
+#: includes/class-ilmenite-slider-post-types.php:36
+msgid "Update Slide"
+msgstr "Uppdatera slide"
+
+#: includes/class-ilmenite-slider-post-types.php:37
+msgid "Search Slide"
+msgstr "Sök slides"
+
+#: includes/class-ilmenite-slider-post-types.php:38
+msgid "Not found"
+msgstr "Inte funnen"
+
+#: includes/class-ilmenite-slider-post-types.php:39
+msgid "Not found in trash"
+msgstr "Inte funnen i papperskorgen"
+
+#: includes/class-ilmenite-slider-post-types.php:77
+msgid "Slide"
+msgstr "Slide"
+
+#: includes/class-ilmenite-slider-post-types.php:81
+msgid "Link"
+msgstr "Länk"
+
+#: includes/class-ilmenite-slider-post-types.php:93
+msgid "Text"
+msgstr "Text"

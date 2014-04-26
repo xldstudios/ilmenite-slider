@@ -1,10 +1,8 @@
 # Ilmenite Slider #
-Barebones WordPress slider plugin based on the Flexslider jQuery slider.
-
-~Current Version:1.1~
+A simple slider plugin for WordPress that adds post type support but leaves styling up to the theme.
 
 ## Description ##
-Basic WordPress slider plugin that adds Flexslider by WooThemes. Made to work with custom theme development and therefore contains no direct theme options panel.
+Basic WordPress slider plugin that adds post type support and if Advanced Custom Fields is enabled, a set of custom ACF fields, leaving the frontend generation to the theme in question.
 
 The idea behind the slider is to remove all bloatware that other plugins contain and make it easy to add a slider to a clients website and theme.
 
@@ -13,12 +11,14 @@ The idea behind the slider is to remove all bloatware that other plugins contain
 **How to include**
 To include the slider in a theme or plugin, do a custom WP_Query that pulls from the *ilmenite_slider* post type.
 
-**Changing Slider Settings**
-You can override the default slider settings, by placing a slider.js file in the *javascripts/* directory of your theme which will be loaded instead of the one provided by the plugin.
-
-For documentation on the slider itself, please see Flexslider's page: http://www.woothemes.com/flexslider/
+You will also need to load the slider of your choice in your theme.
 
 ## Changelog ##
+
+**Version 1.2**
+* Again changed plugin architecture to be class-oriented.
+* Removed loading of any slider function code (flexslider) and leaves styling completely to the theme.
+* Removed plugin auto-update support as it is not ideal for this type of plugin.
 
 **Version 1.1**
 * Completely changed plugin architecture.
